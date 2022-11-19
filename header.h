@@ -3,6 +3,10 @@
 #ifndef __header_H__
 #define __header_H__
 
+#include<iostream>
+#include<string>
+#include<vector>
+#include <map>
 struct mail {
 	std::string To;
 	std::string From;
@@ -10,16 +14,11 @@ struct mail {
 	std::string Contents;
 };
 
-#include<iostream>
-#include<string>
-#include<vector>
-#include <map>
-
 class Account
 {
 protected:
 	std::string ID;
-	std::string PassWord;
+	std::string PassWord;`
 	std::vector<std::string> ID_list;
 	std::map<std::string, std::string> account_Twin;
 	mail email;
