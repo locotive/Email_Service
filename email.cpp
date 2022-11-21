@@ -5,12 +5,18 @@ void MainController::start()
 	AccountController account;
 	while (1)
 	{
+		system("cls");
 		std::cout << "원하시는 메뉴를 선택해주세요" << std::endl;
 		std::cout << "종료 0" << std::endl;
 		std::cout << "회원 가입 1" << std::endl;
 		std::cout << "로그인 2" << std::endl;
+		std::cout << "ID 목록 3" << std::endl;
 		std::cin >> menu;
-		if (menu == 1)
+		if (menu == 0)
+		{
+		exit(0);
+		}
+		else if (menu == 1)
 		{
 			account.make_account();
 		}
@@ -18,9 +24,9 @@ void MainController::start()
 		{
 			account.login();
 		}
-		else if (menu == 0)
+		else if (menu == 3)
 		{
-			exit(0);
+			account.print_Id();
 		}
 		else
 		{
@@ -33,15 +39,17 @@ void MainController::start()
 
 void AccountController::make_account()
 {
-	std::cout << "ID를 입력하세요" << std::endl;
+	system("cls");
+	std::cout << "ID를 입력하세요: ";
 	std::cin >> ID;
 	if (find(ID_list.begin(), ID_list.end(), ID) == ID_list.end())
 	{
 		ID_list.push_back(ID);
-		std::cout << "PassWord를 입력하세요" << std::endl;
+		std::cout << "PassWord를 입력하세요: ";
 		std::cin >> PassWord;
 		account_Twin.insert(std::make_pair(ID, PassWord));
-		std::cout << "가입되었습니다" << std::endl;
+		std::cout <<"<"<<ID <<">" << " 가입되었습니다" << std::endl;
+		Sleep(1000);
 	}
 	else
 		std::cout << "중복된 ID 입니다" << std::endl;
@@ -49,15 +57,17 @@ void AccountController::make_account()
 }
 void AccountController::login()
 {
-	std::cout << "ID를 입력하세요" << std::endl;
+	system("cls");
+	std::cout << "ID를 입력하세요: ";
 	std::cin >> ID;
-	std::cout << "PassWord를 입력하세요" << std::endl;
+	std::cout << "PassWord를 입력하세요: ";
 	std::cin >> PassWord;
 	if (account_Twin.count(ID) == 1)
 	{
 		if (account_Twin[ID] == PassWord)
 		{
 			std::cout << "로그인 되었습니다" << std::endl;
+			Sleep(1000);
 			E_control.start();
 		}
 		else
@@ -69,10 +79,19 @@ void AccountController::login()
 		std::cout << "ID를 잘못 입력하셨습니다." << std::endl;
 
 }
+void AccountController::print_Id()
+{
+	system("cls");
+	std::cout << "ID 목록" << std::endl;
+	for (int i = 0; i < ID_list.size(); i++)
+		std::cout <<i+1<<") "<< ID_list[i] << std::endl;
+	system("PAUSE");
+}
 void EmailController::start()
 {
 	while (1)
 	{
+		system("cls");
 		std::cout << "원하시는 메뉴를 선택해주세요" << std::endl;
 		std::cout << "로그아웃 0" << std::endl;
 		std::cout << "메일 쓰기 1" << std::endl;

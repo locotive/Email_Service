@@ -7,6 +7,8 @@
 #include<string>
 #include<vector>
 #include <map>
+#include <windows.h> 
+
 struct mail {
 	std::string To;
 	std::string From;
@@ -18,7 +20,7 @@ class Account
 {
 protected:
 	std::string ID;
-	std::string PassWord;`
+	std::string PassWord;
 	std::vector<std::string> ID_list;
 	std::map<std::string, std::string> account_Twin;
 	mail email;
@@ -45,6 +47,7 @@ class AccountController :public Account
 public:
 	void make_account();
 	void login();
+	void print_Id();
 };
 
 #endif
