@@ -23,6 +23,7 @@ protected:
 	std::string PassWord;
 	std::vector<std::string> ID_list;
 	std::map<std::string, std::string> account_Twin;
+	std::vector<mail> email_list;
 	mail email;
 	int menu;
 };
@@ -35,11 +36,12 @@ public:
 class EmailController :public Account
 {
 public:
-	void start();
+	void start(std::string);
 	void write();
 	void receive();
 	void send();
-
+	void copy_vec(const std::string&);
+	
 };
 class AccountController :public Account
 {

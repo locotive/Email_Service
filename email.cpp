@@ -46,13 +46,14 @@ void AccountController::make_account()
 	{
 		ID_list.push_back(ID);
 		std::cout << "PassWord를 입력하세요: ";
+		E_control.copy_vec(ID);
 		std::cin >> PassWord;
 		account_Twin.insert(std::make_pair(ID, PassWord));
 		std::cout <<"<"<<ID <<">" << " 가입되었습니다" << std::endl;
-		Sleep(1000);
 	}
 	else
 		std::cout << "중복된 ID 입니다" << std::endl;
+	Sleep(1000);
 
 }
 void AccountController::login()
@@ -68,11 +69,12 @@ void AccountController::login()
 		{
 			std::cout << "로그인 되었습니다" << std::endl;
 			Sleep(1000);
-			E_control.start();
+			E_control.start(ID);
 		}
 		else
 		{
 			std::cout << "PassWord를 잘못 입력하셨습니다." << std::endl;
+			Sleep(1000);
 		}
 	}
 	else
@@ -87,8 +89,13 @@ void AccountController::print_Id()
 		std::cout <<i+1<<") "<< ID_list[i] << std::endl;
 	system("PAUSE");
 }
-void EmailController::start()
+void EmailController::copy_vec(const std::string& id) 
 {
+	ID_list.push_back(id);
+}
+void EmailController::start(std::string id)
+{
+	ID = id;
 	while (1)
 	{
 		system("cls");
@@ -96,7 +103,7 @@ void EmailController::start()
 		std::cout << "로그아웃 0" << std::endl;
 		std::cout << "메일 쓰기 1" << std::endl;
 		std::cout << "받은 메일함 2" << std::endl;
-		std::cout << "발송 메일함 3" << std::endl;
+		std::cout << "보낸 메일함 3" << std::endl;
 		std::cin >> menu;
 		if (menu == 0)
 		{
@@ -118,13 +125,66 @@ void EmailController::start()
 }
 void EmailController::write()
 {
-	
+	system("cls");
+	email.From= ID ;
+	std::cout << "To: ";
+	std::cin >> email.To;
+	std::cout << "Title: ";
+	std::cin >> email.Title;
+	std::cout << "Contents: ";
+	std::cin >> email.Contents;
+	for (int i = 0; i < ID_list.size(); i++)
+	{
+		if (ID_list[i] == email.To)
+		{
+			email_list.push_back(email);
+			std::cout << email.To << " 에게 메일을 발송합니다." << std::endl;
+			Sleep(1000);
+			return;
+		}
+		else if (i == ID_list.size()-1)
+		{
+			std::cout << "이메일이 존재하지 않습니다." << std::endl;
+			std::cout << "다시 보내시려면 y를 입력하세요" << std::endl;
+			std::cin >> i;
+			if (i == 'y')
+			{
+				write();
+			}
+			else
+			{
+				system("PAUSE");
+			}
+		}
+	}
 }
 void EmailController::receive()
 {
-
+	system("cls");
+	std::cout << "보낸 메일함" << std::endl;
+	for (int i = 0; i < email_list.size(); i++)
+	{
+		if (email_list[i].To == ID)
+		{
+			std::cout << "From: " << email_list[i].From << std::endl;
+			std::cout << "Title: " << email_list[i].Title << std::endl;
+			std::cout << "Contents: " << email_list[i].Contents << std::endl<<std::endl;
+		}
+	}
+	system("PAUSE");
 }
 void EmailController::send()
 {
-
+	system("cls");
+	std::cout << "받은 메일함" << std::endl;
+	for (int i = 0; i < email_list.size(); i++)
+	{
+		if (email_list[i].From == ID)
+		{
+			std::cout << "To: " << email_list[i].To << std::endl;
+			std::cout << "Title: " << email_list[i].Title << std::endl;
+			std::cout << "Contents: " << email_list[i].Contents << std::endl << std::endl;
+		}
+	}
+	system("PAUSE");
 }
