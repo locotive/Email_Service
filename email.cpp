@@ -154,6 +154,7 @@ void EmailController::write()
 			else
 			{
 				system("PAUSE");
+				return;
 			}
 		}
 	}
