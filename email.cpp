@@ -74,11 +74,11 @@ void AccountController::login()
 		else
 		{
 			std::cout << "PassWord를 잘못 입력하셨습니다." << std::endl;
-			Sleep(1000);
 		}
 	}
 	else
 		std::cout << "ID를 잘못 입력하셨습니다." << std::endl;
+		Sleep(1000);
 
 }
 void AccountController::print_Id()
@@ -146,15 +146,15 @@ void EmailController::write()
 		{
 			std::cout << "이메일이 존재하지 않습니다." << std::endl;
 			std::cout << "다시 보내시려면 y를 입력하세요" << std::endl;
-			std::cin >> i;
-			if (i == 'y')
+			std::string temp;
+			std::cin >> temp;
+			if (temp == "y")
 			{
 				write();
 			}
 			else
 			{
-				system("PAUSE");
-				return;
+				break;
 			}
 		}
 	}
